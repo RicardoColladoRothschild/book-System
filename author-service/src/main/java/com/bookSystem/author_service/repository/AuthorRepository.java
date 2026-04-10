@@ -1,6 +1,7 @@
 package com.bookSystem.author_service.repository;
 
 
+import com.bookSystem.author_service.entity.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
