@@ -1,0 +1,4 @@
+application:
+  services:
+    book-service:
+      url: http://book-service:8081
