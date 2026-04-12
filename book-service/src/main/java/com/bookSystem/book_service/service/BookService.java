@@ -32,7 +32,11 @@ public class BookService {
         }
 
         public Book getBookById(Long id){
-            return repository.findById(id);
+            Book book = repository.findById(id)
+                    .orElseThrow(()-> new RuntimeException("Book not found with id: " + id));
+
+            return book;
+
         }
 
 
