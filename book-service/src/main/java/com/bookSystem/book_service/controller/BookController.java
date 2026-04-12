@@ -4,8 +4,7 @@ import com.bookSystem.book_service.dto.BookRequestDTO;
 import com.bookSystem.book_service.dto.BookResponseDTO;
 import com.bookSystem.book_service.entity.Book;
 import com.bookSystem.book_service.service.BookService;
-import feign.Response;
-import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,26 +22,27 @@ public class BookController {
 
 
         @GetMapping
-        public ResponseEntity<List<Book>> getAllBooks(){
+        public ResponseEntity<List<BookResponseDTO>> getAllBooks(){
 
                 return ResponseEntity.ok().body(bookService.getAllBook());
         }
 
 
         @PostMapping
-        public ResponseEntity<BookResponseDTO> createdBook(@RequestBody BookRequestDTO dto){
+        public ResponseEntity<BookResponseDTO> createdBook(@Valid @RequestBody BookRequestDTO dto){
             BookResponseDTO response = bookService.createBook(dto);
             return ResponseEntity.ok(response);
         }
 
         @GetMapping("/{id}")
-        public ResponseEntity<Book> getBookById(@PathVariable Long id){
+        public ResponseEntity<BookResponseDTO> getBookById(@PathVariable Long id){
             return ResponseEntity.ok(bookService.getBookById(id));
         }
 
         @DeleteMapping("/{id}")
-        public ResponseEntity<Book> deleteBook(@PathVariable Long id){
-            return ResponseEntity.ok(bookService.deleteBook(id));
+        public ResponseEntity<Void> deleteBook(@PathVariable Long id){
+             bookService.deleteBook(id);
+             return ResponseEntity.noContent().build();
         }
 
 

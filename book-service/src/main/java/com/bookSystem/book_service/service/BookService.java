@@ -4,12 +4,13 @@ import com.bookSystem.book_service.dto.BookRequestDTO;
 import com.bookSystem.book_service.dto.BookResponseDTO;
 import com.bookSystem.book_service.entity.Book;
 import com.bookSystem.book_service.repository.BookRepository;
+import com.bookSystem.book_service.utility.BookMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.bookSystem.book_service.utility.DtoUtility.toDto;
-import static com.bookSystem.book_service.utility.DtoUtility.toEntity;
+import static com.bookSystem.book_service.utility.BookMapper.toDto;
+import static com.bookSystem.book_service.utility.BookMapper.toEntity;
 
 
 @Service
@@ -22,8 +23,11 @@ public class BookService {
         }
 
 
-        public List<Book> getAllBook(){
-                return this.repository.findAll();
+        public List<BookResponseDTO> getAllBook(){
+                return repository.findAll()
+                        .stream()
+                        .map(BookMapper::toDto)
+                        .toList();
         }
 
 
@@ -34,20 +38,19 @@ public class BookService {
 
         }
 
-        public Book deleteBook(Long id){
+        public void deleteBook(Long id){
             Book bookToDelete = this.repository.findById(id)
                     .orElseThrow(()-> new RuntimeException("Book not found with id: " + id));
 
                 repository.delete(bookToDelete);
-                return bookToDelete;
 
         }
 
-        public Book getBookById(Long id){
+        public BookResponseDTO getBookById(Long id){
             Book book = repository.findById(id)
                     .orElseThrow(()-> new RuntimeException("Book not found with id: " + id));
 
-            return book;
+            return toDto(book);
 
         }
 
