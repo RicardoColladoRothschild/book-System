@@ -1,5 +1,7 @@
 package com.bookSystem.book_service.controller;
 
+import com.bookSystem.book_service.dto.BookRequestDTO;
+import com.bookSystem.book_service.dto.BookResponseDTO;
 import com.bookSystem.book_service.entity.Book;
 import com.bookSystem.book_service.service.BookService;
 import feign.Response;
@@ -24,6 +26,13 @@ public class BookController {
         public ResponseEntity<List<Book>> getAllBooks(){
 
                 return ResponseEntity.ok().body(bookService.getAllBook());
+        }
+
+
+        @PostMapping
+        public ResponseEntity<BookResponseDTO> createdBook(@RequestBody BookRequestDTO dto){
+            BookResponseDTO response = bookService.createBook(dto);
+            return ResponseEntity.ok(response);
         }
 
         @GetMapping("/{id}")

@@ -1,11 +1,15 @@
 package com.bookSystem.book_service.service;
 
+import com.bookSystem.book_service.dto.BookRequestDTO;
+import com.bookSystem.book_service.dto.BookResponseDTO;
 import com.bookSystem.book_service.entity.Book;
 import com.bookSystem.book_service.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.bookSystem.book_service.utility.DtoUtility.toDto;
+import static com.bookSystem.book_service.utility.DtoUtility.toEntity;
 
 
 @Service
@@ -20,6 +24,14 @@ public class BookService {
 
         public List<Book> getAllBook(){
                 return this.repository.findAll();
+        }
+
+
+        public BookResponseDTO createBook(BookRequestDTO dto){
+            Book book = toEntity(dto);
+            Book saved = repository.save(book);
+                return toDto(saved);
+
         }
 
         public Book deleteBook(Long id){
