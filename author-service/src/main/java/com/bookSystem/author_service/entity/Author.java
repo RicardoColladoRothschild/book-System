@@ -16,8 +16,8 @@ public class Author {
 
     private String name;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<Book> books;
+    @ElementCollection
+    private List<Long> bookIds;
 
     @Override
     public boolean equals(Object o) {

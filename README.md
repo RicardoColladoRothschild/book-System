@@ -50,3 +50,7 @@ the frontend as well (probably will be using reactjs)
 | 🛒 payment-service | Handle payment with paypal (not yet) |
 
 PLEASE NOTCE: payment has not been develop or even create package yet.
+
+## Creating Author
+Author must be creared with name, and you can created with empty book list. 
+Once an author is created, you will be able to create a book, using that author name (or id if you are going to send through an API CLIENT instead of the web option)
